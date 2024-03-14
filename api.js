@@ -2,10 +2,8 @@ const express = require('express');
 const { createHandler } = require("graphql-http/lib/use/express");
 const { buildSchema } = require("graphql");
 const path = require('path');
-
 const app = express();
 
-// Configuration de GraphQL
 const schema = buildSchema(`
   type Query {
     sommeDeXPremierNombres(nombres: Int!): Int
@@ -39,7 +37,6 @@ const root = {
   },
 };
 
-// Point d'entrée pour GraphQL
 app.all(
   "/graphql",
   createHandler({
@@ -48,10 +45,8 @@ app.all(
   })
 );
 
-// Servir les fichiers statiques (index.html, script.js)
 app.use(express.static(path.join(__dirname, '/')));
 
-// Lancer le serveur sur le port 8080
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
